@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.js"></script>
+	</head>
+	<body>
+		<style>
+			.container {
+				border: 5px solid black;
+				padding: 10px;
+			}
+		</style>
+		<div id="red"></div>
+		<div id="blue"></div>
+		<script>
+			function reducer(state, action){
+				if(state === undefined) {
+					// 처음, 값이 없을 때, 최초 1회는 실행됨.
+					return { color : 'yellow' }
+				}
+				var newState;
+				if(action.type === 'CHANGE_COLOR') {
+					newState = Object.assign({}, state, {color:action.color});
+				}
+				return newState;
+			}
+			const store = Redux.createStore(
+				reducer, /* preloadedState, */
+				window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+ 			);
+			function red(){
+				var state = store.getState();
+				document.querySelector('#red').innerHTML = `
+					<div class="container" id="component_red" style="background-color:${state.color}">
+						<h1>red</h1>
+						<input type="button" value="fire" onclick="
+							store.dispatch({type:'CHANGE_COLOR', color:'red'})
+						">
+					</div>
+				`;
+			}
+			store.subscribe(red);
+			red();
+
+			function blue(){
+				var state = store.getState();
+				document.querySelector('#blue').innerHTML = `
+					<div class="container" id="component_blue" style="background-color:${state.color}">
+						<h1>blue</h1>
+						<input type="button" value="fire" onclick="
+							store.dispatch({type:'CHANGE_COLOR', color:'blue'})
+						">
+					</div>
+				`;
+			}
+			store.subscribe(blue);
+			blue();
+		</script>
+	</body>
+</html>
