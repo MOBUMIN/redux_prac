@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.js"></script>
+		<script src="component.js"></script>
+		<script src="reducer.js"></script>
+	</head>
+	<body>
+		<div id="subject"></div>
+		<div id="toc"></div>
+		<div id="control"></div>
+		<div id="content"></div>
+		<script>
+			store.subscribe(article);
+			store.subscribe(TOC);
+			
+			subject();
+			TOC();
+			controller();
+			article();
+		</script>
+	</body>
+</html>
